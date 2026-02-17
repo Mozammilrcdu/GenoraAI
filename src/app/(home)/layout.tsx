@@ -1,0 +1,20 @@
+import { Navbar } from "@/modules/home/ui/components/navbar";
+import { ReactNode } from "react";
+
+interface Props {
+  children: ReactNode;
+}
+
+export default function HomeLayout({ children }: Props) {
+  return (
+    <main className="flex flex-col min-h-screen w-full relative overflow-x-hidden">
+      <Navbar />
+
+      <div className="fixed inset-0 -z-10 w-full h-full bg-[radial-gradient(#dadde2_1px,transparent_1px)] dark:bg-[radial-gradient(#393e4a_1px,transparent_1px)] bg-size-[16px_16px]" />
+
+      <div className="flex-1 flex flex-col px-4 pb-4 w-full">
+        {children}
+      </div>
+    </main>
+  );
+}
