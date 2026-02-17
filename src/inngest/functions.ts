@@ -199,9 +199,10 @@ export const codeAgentFunction = inngest.createFunction(
             lastAssistantMessageContent(result);
 
           if (lastAssistantTextMessageText && network) {
-            if (lastAssistantTextMessageText.includes("<task_summary>")) {
-              network.state.data.summary = lastAssistantTextMessageText;
-            }
+            if (lastAssistantTextMessageText) {
+                network.state.data.summary ||= lastAssistantTextMessageText;
+              }
+
           }
 
           return result;
@@ -226,6 +227,13 @@ export const codeAgentFunction = inngest.createFunction(
     });
 
     const result = await network.run(event.data.value, { state });
+    if (
+  !result.state.data.summary &&
+  Object.keys(result.state.data.files).length > 0
+) {
+  result.state.data.summary =
+    "Code generation completed successfully.";
+}
 
     const fragmentTitleGenerator = createAgent({
       name: "fragment-title-generator",
