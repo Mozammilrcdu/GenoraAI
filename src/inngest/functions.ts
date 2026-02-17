@@ -102,9 +102,6 @@ export const codeAgentFunction = inngest.createFunction(
       system: PROMPT,
       model: gemini({
         model: "gemini-3-flash-preview",
-        defaultParameters: {
-        temperature: 0.1,
-        },
       }),
       tools: [
         createTool({
